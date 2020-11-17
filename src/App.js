@@ -44,7 +44,7 @@ class App extends React.Component {
           </blockquote>
           <Card.Text id="author">{data.author}</Card.Text>
           <Button id="new-quote" variant="primary" onClick={this.getNewQuote}>New Quote</Button>
-          <Button id="tweet-quote" variant="primary">Tweet Quote</Button>
+          <a type="button" id="tweet-quote" href="twitter.com/intent/tweet"variant="primary">Tweet Quote</a>
         </Card.Body>
 
       </Card> 

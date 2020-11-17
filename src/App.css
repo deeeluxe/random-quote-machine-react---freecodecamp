@@ -9,8 +9,20 @@
 
 #new-quote, #tweet-quote {
     margin: 0 10px;
+    align-items: center;
 }
 
 #quote-box {
     background-color: lightgoldenrodyellow;
+}
+
+#tweet-quote {
+    background-color: #007Bff;
+    color: white;
+    border-radius: 4px;
+    padding: 7px 10px 7px 10px;
+}
+
+#tweet-quote:hover {
+    background-color: #0069D9
 }
