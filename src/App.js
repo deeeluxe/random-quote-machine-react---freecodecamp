@@ -8,26 +8,45 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      author: "", 
-      quote: ""
+      data: null
     };
-
   }
+  
+  componentDidMount() {
+    this.getNewQuote();
+  }
+
+  getNewQuote = async () => {
+    try {
+      const response = await fetch("https://api.quotable.io/random");
+      const data = await response.json();
+      if(!response.ok) throw new Error(data);
+      this.setState({ data })
+    } catch (error) {
+      console.log(error);
+      this.setState({
+        data: {content: "Opps, something went wrong, Linus"}
+      })
+    }
+  }
+   
+    
   render() {
+    const {data} = this.state;
+    if(!data) return null
     return (
       <div className="App">
-      <h2>Random Quote Machine React Test</h2>
+      <h2>Random Quote Machine/React</h2>
       <Card style={{ width: '90%', maxWidth: "50rem" }}>
         <Card.Body id="quote-box">
           <blockquote>
-            <Card.Title id="text">uhefhehf</Card.Title>
+          <Card.Title id="text">{data.content}</Card.Title>
           </blockquote>
-          <Card.Text id="author">linus</Card.Text>
-        </Card.Body>
-        <Card.Footer>
-          <Button id="new-quote" variant="primary">New Quote</Button>
+          <Card.Text id="author">{data.author}</Card.Text>
+          <Button id="new-quote" variant="primary" onClick={this.getNewQuote}>New Quote</Button>
           <Button id="tweet-quote" variant="primary">Tweet Quote</Button>
-        </Card.Footer>
+        </Card.Body>
+
       </Card> 
       </div>
     );
@@ -35,18 +54,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-
-// async function updateQuote() {
-//   // Fetch a random quote from the Quotable API
-//   const response = await fetch("https://api.quotable.io/random");
-//   const data = await response.json();
-//   if (response.ok) {
-//     // Update DOM elements
-//     quote.textContent = data.content;
-//     cite.textContent = data.author;
-//   } else {
-//     quote.textContent = "An error occured";
-//     console.log(data);
-//   }
-// }
